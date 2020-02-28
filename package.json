@@ -20,11 +20,15 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
-        "vue": "^2.5.17",
+        "vue": "^2.6.11",
         "vue-router": "^3.1.5",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.12.1",
+        "bootstrap": "^4.4.1",
+        "bootstrap-vue": "^2.5.0",
+        "laravel-vue-pagination": "^2.3.1",
         "tailwindcss": "^1.2.0"
     }
 }
