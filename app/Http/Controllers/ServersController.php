@@ -55,15 +55,14 @@ class ServersController extends Controller
     private function validateData(){
         return request()->validate([
             'status' => 'required',
-            'domain' => 'required_without:ip',
-            'ip' => 'required_without:domain',
+            'domain' => 'required',
         ]);
     }
 
     public function serverLogs(Server $server)
     {
 //        return json_encode($server->id);
-        $logs = ServerLog::where('server_id', $server->id)->orderBy('created_at' , 'desc')->paginate(5);
+        $logs = ServerLog::where('server_id', $server->id)->orderBy('created_at' , 'desc')->paginate(25);
         return  ServerLogResource::collection($logs);
     }
 

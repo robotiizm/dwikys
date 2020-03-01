@@ -11,7 +11,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto w-100 justify-content-end">
                         <li class="nav-item active">
-                            <router-link to="/servers/create"><p class="nav-link text-green-400 font-bold">Create</p></router-link>
+                            <router-link to="/servers/create"><p class="nav-link text-green-400 font-bold">Add New Server</p></router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/notification-settings"><p class="nav-link text-green-400 font-bold">Notification Settings</p></router-link>
@@ -36,8 +36,5 @@
 </script>
 
 <style >
-
-
-
 
 </style>

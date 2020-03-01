@@ -3,9 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Server;
+use App\ServerLog;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use JJG\Ping;
 
 class CheckServers extends Command
@@ -37,7 +39,8 @@ class CheckServers extends Command
 
     public function handle()
     {
-        $servers = Server::where('status' , 'active')->select(['domain' , 'user_id'])->get();
+//        \Log::error('This definitely should have run!');
+        $servers = Server::where('status' , 'active')->get();
         foreach ($servers as $server) {
             $host = $server->domain;
             $ping = new Ping($host);
@@ -47,17 +50,31 @@ class CheckServers extends Command
             $latency = $ping->ping();
             if ($latency !== false) {
                 echo  $host. '-> ' . $latency ."\r\n";
-                dd(gettype($latency));
-                if ($latency >= 200){
-                    echo $host.' is Slow'."\r\n";
+
+                if ($latency >= 500){
+//                    echo $host.' is Slow'."\r\n";
                     $userId = $server->user_id;
                     $chatId = User::where('id' , $userId)->pluck('chat_id')->first();
+
+                    $server->serverLog()->create([
+                        'type' => 'Slow',
+                        'ping' => $latency,
+                        'score' => '',
+                        'details'=>''
+                    ]);
+
                     $this->sendMessage($host.' is Slow'."\r\n ping-> ".$latency , $chatId);
                 }
             } else {
                 $userId = $server->user_id;
                 $chatId = User::where('id' , $userId)->pluck('chat_id')->first();
                 print $host.' could not be reached.'."\r\n";
+                $server->serverLog()->create([
+                    'type' => 'Down',
+                    'ping' => 'timeout',
+                    'score' => '',
+                    'details'=>''
+                ]);
                 $this->sendMessage($host.' could not be reached.'."\r\n" , $chatId);
             }
 

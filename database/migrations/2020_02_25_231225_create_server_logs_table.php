@@ -17,7 +17,7 @@ class CreateServerLogsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('server_id');
             $table->string('type')->nullable();
-            $table->double('ping');
+            $table->string('ping');
             $table->string('score')->nullable();
             $table->string('details')->nullable();
             $table->timestamps();

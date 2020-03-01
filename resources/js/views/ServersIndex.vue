@@ -5,7 +5,8 @@
                 <div v-if="server.data.status == 'active'" >
                     <div class="card mx-2 mt-4 border-blue-300 ">
                         <div class="card-header bg-blue-600 shadow text-white font-bold ">
-                            {{server.data.domain}}
+                            <p ><a v-bind:href="'https://'+server.data.domain" target="_blank">{{ server.data.domain}}</a> </p>
+
                         </div>
                         <div class="card-body ">
                             <div class="flex justify-between items-center">
@@ -21,7 +22,8 @@
                 <div v-else class="">
                     <div class="card mx-2 mt-4 border-red-300">
                         <div class="card-header bg-red-600 shadow text-white font-bold ">
-                            {{server.data.domain}}
+                            <p ><a v-bind:href="'https://'+server.data.domain" target="_blank">{{ server.data.domain}}</a> </p>
+
                         </div>
                         <div class="card-body ">
                             <div class="flex justify-between items-center">

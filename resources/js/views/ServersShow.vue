@@ -1,10 +1,10 @@
 <template>
-    <div class="m-10">
+    <div class="m-8">
         <div v-if="loading">Loading...</div>
         <div v-else class="row flex items-center">
             <div v-if="server.domain" class="col-md-4">
                 <p class="pt-6 text-gray-600 font-bold uppercase text-sm">domain</p>
-                <p class="pt-2 text-blue-400">{{ server.domain}} </p>
+                <p class="pt-2 text-blue-400"><a v-bind:href="'https://'+server.domain" target="_blank">{{ server.domain}}</a> </p>
             </div>
 
             <div v-if="server.status" class="col-md-4">
@@ -41,17 +41,17 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Details</th>
                         <th scope="col">Ping</th>
+<!--                        <th scope="col">Details</th>-->
                         <th scope="col">Time</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="logs in serverLogs.data" >
-                        <th scope="row">1</th>
+                    <tr v-for="(logs, id) in serverLogs.data" :key="id">
+                        <th >{{id+1}}</th>
                         <td>{{logs.type}}</td>
-                        <td>{{logs.details}}</td>
                         <td>{{logs.ping}}</td>
+<!--                        <td>{{logs.details}}</td>-->
                         <td>{{logs.time}}</td>
                     </tr>
                     </tbody>
@@ -102,6 +102,8 @@
             getLogs: function (page = 1) {
                 axios.get('/api/servers/logs/'+ this.$route.params.id +'?page=' + page)
                     .then(response => {
+                        // console.log(response);
+
                         this.serverLogs = response.data;
                         this.logsLoading = false;
                     });
