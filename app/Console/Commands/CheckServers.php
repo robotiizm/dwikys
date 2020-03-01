@@ -17,8 +17,8 @@ class CheckServers extends Command
      *
      * @var string
      */
-    protected $signature = 'command:CheckServers';
-
+    protected $signature = 'check:servers';
+    protected $name = 'check:servers';
     /**
      * The console command description.
      *
