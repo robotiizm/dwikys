@@ -39,20 +39,18 @@ class CheckServers extends Command
 
     public function handle()
     {
-//        \Log::error('This definitely should have run!');
+
         $servers = Server::where('status' , 'active')->get();
         foreach ($servers as $server) {
             $host = $server->domain;
             $ping = new Ping($host);
-//            echo $server->domain;
+
 
 
             $latency = $ping->ping();
             if ($latency !== false) {
                 echo  $host. '-> ' . $latency ."\r\n";
-
                 if ($latency >= 500){
-//                    echo $host.' is Slow'."\r\n";
                     $userId = $server->user_id;
                     $chatId = User::where('id' , $userId)->pluck('chat_id')->first();
 
@@ -96,11 +94,9 @@ class CheckServers extends Command
 
     public function sendMessage($msg , $chatId)
     {
-<<<<<<< HEAD
+
         $token = env('TELEGRAM_BOT_TOKEN');
-=======
-        $token = '';
->>>>>>> master
+
         $client = new Client();
         $request_params = [
             'chat_id' => $chatId,
