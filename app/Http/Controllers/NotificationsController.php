@@ -30,7 +30,7 @@ class NotificationsController extends Controller
     public function checkKey()
     {
         $client = new Client();
-        $token = '1012327452:AAGXzy4w8nxcQ_DTJ6fySjMIM7X13Rgm50U';
+        $token = env('TELEGRAM_BOT_TOKEN');
         $api_response = $client->get( 'https://api.telegram.org/bot' . $token . '/getUpdates')->getBody();
         $response = json_decode($api_response);
         $key = request()->user()->bot_key;
@@ -47,7 +47,7 @@ class NotificationsController extends Controller
 
     public function sendMessage($msg)
     {
-        $token = '1012327452:AAGXzy4w8nxcQ_DTJ6fySjMIM7X13Rgm50U';
+        $token = env('TELEGRAM_BOT_TOKEN');
         $client = new Client();
         $chatId = request()->user()->chat_id;
         $request_params = [

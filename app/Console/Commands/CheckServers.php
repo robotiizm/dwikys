@@ -96,7 +96,7 @@ class CheckServers extends Command
 
     public function sendMessage($msg , $chatId)
     {
-        $token = '1012327452:AAGXzy4w8nxcQ_DTJ6fySjMIM7X13Rgm50U';
+        $token = env('TELEGRAM_BOT_TOKEN');
         $client = new Client();
         $request_params = [
             'chat_id' => $chatId,
