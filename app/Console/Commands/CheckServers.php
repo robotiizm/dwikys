@@ -48,7 +48,7 @@ class CheckServers extends Command
             $latency = $ping->ping();
             if ($latency !== false) {
                 echo  $host. '-> ' . $latency ."\r\n";
-                if ($latency >= 50){
+                if ($latency >= 400){
                     $userId = $server->user_id;
                     $chatId = User::where('id' , $userId)->pluck('chat_id')->first();
                     $server->serverLog()->create([
