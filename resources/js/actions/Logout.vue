@@ -10,7 +10,6 @@
         created() {
             axios.post('/logout', {})
                 .finally(error => {
-                    console.log(error);
                     window.location = '/login';
                 })
         }
