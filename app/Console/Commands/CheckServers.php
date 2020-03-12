@@ -39,23 +39,18 @@ class CheckServers extends Command
 
     public function handle()
     {
-//        \Log::error('This definitely should have run!');
+
         $servers = Server::where('status' , 'active')->get();
+        $adminChatId = User::where('role' , 'admin')->pluck('chat_id')->first();
         foreach ($servers as $server) {
             $host = $server->domain;
             $ping = new Ping($host);
-//            echo $server->domain;
-
-
             $latency = $ping->ping();
             if ($latency !== false) {
                 echo  $host. '-> ' . $latency ."\r\n";
-
-                if ($latency >= 500){
-//                    echo $host.' is Slow'."\r\n";
+                if ($latency >= 50){
                     $userId = $server->user_id;
                     $chatId = User::where('id' , $userId)->pluck('chat_id')->first();
-
                     $server->serverLog()->create([
                         'type' => 'Slow',
                         'ping' => $latency,
@@ -64,6 +59,7 @@ class CheckServers extends Command
                     ]);
 
                     $this->sendMessage($host.' is Slow'."\r\n ping-> ".$latency , $chatId);
+                    $this->sendMessage($host.' is Slow'."\r\n ping-> ".$latency. "\r\n user->". User::where('id', $userId)->pluck('email')->first(), $adminChatId);
                 }
             } else {
                 $userId = $server->user_id;
@@ -76,6 +72,7 @@ class CheckServers extends Command
                     'details'=>''
                 ]);
                 $this->sendMessage($host.' could not be reached.'."\r\n" , $chatId);
+                $this->sendMessage($host.' could not be reached.'."\r\n"."user->". User::where('id', $userId)->pluck('email')->first() , $adminChatId);
             }
 
 
@@ -96,11 +93,9 @@ class CheckServers extends Command
 
     public function sendMessage($msg , $chatId)
     {
-<<<<<<< HEAD
+
         $token = env('TELEGRAM_BOT_TOKEN');
-=======
-        $token = '';
->>>>>>> master
+
         $client = new Client();
         $request_params = [
             'chat_id' => $chatId,

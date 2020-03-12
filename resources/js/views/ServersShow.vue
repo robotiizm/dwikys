@@ -40,18 +40,18 @@
                     <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Type</th>
+                        <th scope="col" >Type</th>
                         <th scope="col">Ping</th>
-<!--                        <th scope="col">Details</th>-->
                         <th scope="col">Time</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="(logs, id) in serverLogs.data" :key="id">
                         <th >{{id+1}}</th>
-                        <td>{{logs.type}}</td>
+                        <td v-if="logs.type == 'Slow'" class="text-yellow-600 font-bold">{{logs.type}}</td>
+                        <td v-else-if="logs.type == 'Down'" class="text-red-600 font-bold">{{logs.type}}</td>
+                        <td v-else >{{logs.type}}</td>
                         <td>{{logs.ping}}</td>
-<!--                        <td>{{logs.details}}</td>-->
                         <td>{{logs.time}}</td>
                     </tr>
                     </tbody>

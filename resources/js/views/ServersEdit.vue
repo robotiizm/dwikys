@@ -53,7 +53,6 @@
                     })
                     .catch(errors => {
                         this.errors = errors.response.data.errors;
-                        console.log(errors);
 
                     });
             }
@@ -66,7 +65,6 @@
                 })
                 .catch(error => {
                     this.loading = false;
-                    console.log(error);
 
                     if(error.response.status === 404){
                         this.$router.push('/servers');

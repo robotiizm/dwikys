@@ -51,7 +51,6 @@
         mounted() {
             axios.get('/api/servers/')
                 .then(res =>{
-                    // console.log(res);
                     this.servers = res.data.data;
                 })
                 .catch(err=> {
